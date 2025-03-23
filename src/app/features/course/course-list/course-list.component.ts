@@ -3,6 +3,7 @@ import {RouterLink} from '@angular/router';
 import {CourseService} from '../services/course.service';
 import {Courses} from '../models/course.model';
 import {NgForOf, NgIf} from '@angular/common';
+import {ListCourses} from '../models/list-courses.model';
 
 @Component({
   selector: 'app-course-list',
@@ -16,7 +17,7 @@ import {NgForOf, NgIf} from '@angular/common';
   styleUrl: './course-list.component.css'
 })
 export class CourseListComponent implements OnInit{
-  courses?: Courses[];
+  courses?: ListCourses[];
   constructor(private courseService: CourseService) {
   }
 

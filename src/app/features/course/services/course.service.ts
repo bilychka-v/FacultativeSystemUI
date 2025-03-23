@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Courses} from '../models/course.model';
 import {environment} from '../../../../environments/environment';
+import {ListCourses} from '../models/list-courses.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,14 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   addCourse(model: AddCourseRequest): Observable<void>{
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/course`, model);
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/Course`, model);
   }
 
-  getCourses(): Observable<Courses[]>{
-    return this.http.get<Courses[]>(`${environment.apiBaseUrl}/api/Course`)
+  getCourses(): Observable<ListCourses[]>{
+    return this.http.get<ListCourses[]>(`${environment.apiBaseUrl}/api/Course`)
+  }
+
+  getCourseById(id: string): Observable<Courses>{
+    return this.http.get<Courses>(`${environment.apiBaseUrl}/api/Course/${id}`)
   }
 }

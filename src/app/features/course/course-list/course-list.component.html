@@ -10,16 +10,18 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Start</th>
-        <th>End</th>
+        <th>Active</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let course of courses">
         <td>{{course.id}}</td>
         <td>{{course.name}}</td>
-        <td>{{course.startDate}}</td>
-        <td>{{course.endDate}}</td>
+        <td>{{course.isActive}}</td>
+        <td>
+          <a class="btn btn-light" [routerLink]="['/admin/course', course.id]">Edit</a>
+        </td>
       </tr>
       </tbody>
     </table>
