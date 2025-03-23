@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {CourseService} from '../services/course.service';
 import {Courses} from '../models/course.model';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {CourseRequest} from '../models/course-request.model';
 
 @Component({
   selector: 'app-edit-course',
@@ -20,11 +21,12 @@ export class EditCourseComponent implements OnInit, OnDestroy{
 
   id: string | null = null;
   paramsSubscription? : Subscription;
+  editSubscription?: Subscription;
   course?: Courses;
-  constructor(private router: ActivatedRoute, private courseService: CourseService) {
+  constructor(private route: ActivatedRoute, private courseService: CourseService, private router: Router) {
   }
   ngOnInit(): void {
-    this.paramsSubscription = this.router.paramMap.subscribe({
+    this.paramsSubscription = this.route.paramMap.subscribe({
       next: (params) =>
       {
         this.id = params.get('id');
@@ -42,10 +44,23 @@ export class EditCourseComponent implements OnInit, OnDestroy{
   }
 
   onFormSubmit(): void{
-    console.log(this.course)
+    const updateCourseRequest: CourseRequest = {
+      name: this.course?.name ?? '',
+      startDate: this.course?.startDate ?? '',
+      endDate: this.course?.endDate ?? ''
+    };
+    if(this.id) {
+      this.editSubscription = this.courseService.updateCourse(this.id, updateCourseRequest)
+        .subscribe({
+          next: (response)=>{
+            this.router.navigateByUrl('/admin/course');
+          }
+        })
+    }
   }
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe();
+    this.editSubscription?.unsubscribe();
   }
 
 }

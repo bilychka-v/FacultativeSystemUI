@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {AddCourseRequest} from '../models/add-course-request.model';
+import {CourseRequest} from '../models/course-request.model';
 import {CourseService} from '../services/course.service';
 import {Router} from '@angular/router';
 
@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 })
 export class AddCourseComponent {
 
-  model: AddCourseRequest;
+  model: CourseRequest;
 
   constructor(private courseService: CourseService,
               private router: Router) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AddCourseRequest} from '../models/add-course-request.model';
+import {CourseRequest} from '../models/course-request.model';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Courses} from '../models/course.model';
@@ -13,7 +13,7 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
-  addCourse(model: AddCourseRequest): Observable<void>{
+  addCourse(model: CourseRequest): Observable<void>{
     return this.http.post<void>(`${environment.apiBaseUrl}/api/Course`, model);
   }
 
@@ -23,5 +23,9 @@ export class CourseService {
 
   getCourseById(id: string): Observable<Courses>{
     return this.http.get<Courses>(`${environment.apiBaseUrl}/api/Course/${id}`)
+  }
+
+  updateCourse(id: string, updateCourse: CourseRequest): Observable<Courses>{
+    return this.http.put<Courses>(`${environment.apiBaseUrl}/api/Course/${id}`, updateCourse)
   }
 }
