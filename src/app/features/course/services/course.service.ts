@@ -5,27 +5,39 @@ import {HttpClient} from '@angular/common/http';
 import {Courses} from '../models/course.model';
 import {environment} from '../../../../environments/environment';
 import {ListCourses} from '../models/list-courses.model';
+import {Teachers} from '../../teacher/models/teacher.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  constructor(private http: HttpClient) { }
 
-  addCourse(model: CourseRequest): Observable<void>{
+  constructor(private http: HttpClient) {
+  }
+
+  addCourse(model: CourseRequest): Observable<void> {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/Course`, model);
   }
 
-  getCourses(): Observable<ListCourses[]>{
+  getCourses(): Observable<ListCourses[]> {
     return this.http.get<ListCourses[]>(`${environment.apiBaseUrl}/api/Course`)
   }
 
-  getCourseById(id: string): Observable<Courses>{
+  getCourseById(id: string): Observable<Courses> {
     return this.http.get<Courses>(`${environment.apiBaseUrl}/api/Course/${id}`)
   }
 
-  updateCourse(id: string, updateCourse: CourseRequest): Observable<Courses>{
+  updateCourse(id: string, updateCourse: CourseRequest): Observable<Courses> {
     return this.http.put<Courses>(`${environment.apiBaseUrl}/api/Course/${id}`, updateCourse)
+  }
+
+  deleteCourse(id: string): Observable<Courses> {
+    return this.http.delete<Courses>(`${environment.apiBaseUrl}/api/Course/${id}`)
+  }
+
+  loadTeachers(): Observable<Teachers[]> {
+    return this.http.get<Teachers[]>(`${environment.apiBaseUrl}/api/Teacher`)
+
   }
 }

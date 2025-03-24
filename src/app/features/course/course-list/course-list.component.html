@@ -11,6 +11,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Active</th>
+        <th>Teacher</th>
         <th></th>
       </tr>
       </thead>
@@ -19,6 +20,7 @@
         <td>{{course.id}}</td>
         <td>{{course.name}}</td>
         <td>{{course.isActive}}</td>
+        <td>{{course.teacherName}}</td>
         <td>
           <a class="btn btn-light" [routerLink]="['/admin/course', course.id]">Edit</a>
         </td>

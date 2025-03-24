@@ -3,9 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {CourseService} from '../services/course.service';
 import {Courses} from '../models/course.model';
-import {NgIf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {CourseRequest} from '../models/course-request.model';
+import {Teachers} from '../../teacher/models/teacher.model';
 
 @Component({
   selector: 'app-edit-course',
@@ -13,7 +14,8 @@ import {CourseRequest} from '../models/course-request.model';
   templateUrl: './edit-course.component.html',
   imports: [
     NgIf,
-    FormsModule
+    FormsModule,
+    NgForOf
   ],
   styleUrl: './edit-course.component.css'
 })
@@ -23,9 +25,13 @@ export class EditCourseComponent implements OnInit, OnDestroy{
   paramsSubscription? : Subscription;
   editSubscription?: Subscription;
   course?: Courses;
+  teachers : Teachers[] = []
   constructor(private route: ActivatedRoute, private courseService: CourseService, private router: Router) {
   }
   ngOnInit(): void {
+    this.courseService.loadTeachers().subscribe({
+      next: (response)=>{ this.teachers = response }
+    });
     this.paramsSubscription = this.route.paramMap.subscribe({
       next: (params) =>
       {
@@ -37,17 +43,20 @@ export class EditCourseComponent implements OnInit, OnDestroy{
               next: (response)=> {
                 this.course = response;
               }
-            })
+            });
         }
       }
     });
   }
 
+
   onFormSubmit(): void{
     const updateCourseRequest: CourseRequest = {
       name: this.course?.name ?? '',
       startDate: this.course?.startDate ?? '',
-      endDate: this.course?.endDate ?? ''
+      endDate: this.course?.endDate ?? '',
+      teacherId: this.course?.teacherId ?? ''
+
     };
     if(this.id) {
       this.editSubscription = this.courseService.updateCourse(this.id, updateCourseRequest)
@@ -58,9 +67,19 @@ export class EditCourseComponent implements OnInit, OnDestroy{
         })
     }
   }
+
+  onDelete(): void{
+    if(this.id) {
+      this.courseService.deleteCourse(this.id)
+        .subscribe({
+          next: (response)=>{
+            this.router.navigateByUrl('admin/course');
+          }
+        });
+    }
+  }
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe();
     this.editSubscription?.unsubscribe();
   }
-
 }
