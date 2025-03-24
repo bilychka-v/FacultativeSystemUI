@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Teachers} from '../models/teacher.model';
 import {TeacherService} from '../services/teacher.service';
 import {NgForOf, NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-teacher-list',
@@ -9,7 +10,8 @@ import {NgForOf, NgIf} from '@angular/common';
   templateUrl: './teacher-list.component.html',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   styleUrl: './teacher-list.component.css'
 })
