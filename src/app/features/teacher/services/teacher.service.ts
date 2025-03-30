@@ -17,6 +17,6 @@ export class TeacherService {
   }
 
   addTeacher(model: TeacherRequestModel): Observable<void>{
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/Teacher`, model)
+    return this.http.post<void>(`${environment.apiBaseUrl}/Auth/register/teacher`, model)
   }
 }

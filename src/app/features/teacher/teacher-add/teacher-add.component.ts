@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {TeacherRequestModel} from '../models/teacher-request.model';
-import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {TeacherService} from '../services/teacher.service';
 import {Router} from '@angular/router';
@@ -20,7 +19,9 @@ export class TeacherAddComponent{
 
   constructor(private teacherService: TeacherService, private router: Router) {
     this.model = {
-      userName: ''
+      userName: '',
+      email: '',
+      password: ''
     }
   }
 
