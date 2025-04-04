@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="card shadow-lg rounded-4">
+    <div class="card-header bg-primary text-white text-center">
+      <h2>{{ course?.name }}</h2>
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf="course; else notFound">
+        <div class="mb-3">
+          <h4 class="text-muted">Course details</h4>
+          <p><strong>Begin:</strong> {{ course.startDate | date: 'dd.MM.yyyy' }}</p>
+          <p><strong>End:</strong> {{ course.endDate | date: 'dd.MM.yyyy' }}</p>
+        </div>
+        <div *ngIf="teacher" class="mb-3">
+          <h5 class="text-secondary">Teacher:</h5>
+          <p class="fw-bold">{{ teacher.userName }}</p>
+        </div>
+      </ng-container>
+      <ng-template #notFound>
+        <p class="text-danger">Course not found.</p>
+      </ng-template>
+    </div>
+    <div class="card-footer text-center">
+      <a [routerLink]="['/']" class="btn btn-outline-primary">Back to courses</a>
+      <button *ngIf="hasRole('student')" class="btn btn-primary">Join</button>
+    </div>
+  </div>
+</div>

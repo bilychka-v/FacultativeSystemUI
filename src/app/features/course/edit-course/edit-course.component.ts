@@ -32,7 +32,8 @@ export class EditCourseComponent implements OnInit, OnDestroy{
     this.courseService.loadTeachers().subscribe({
       next: (response)=>{ this.teachers = response }
     });
-    this.paramsSubscription = this.route.paramMap.subscribe({
+    this.paramsSubscription = this.route.paramMap
+      .subscribe({
       next: (params) =>
       {
         this.id = params.get('id');
