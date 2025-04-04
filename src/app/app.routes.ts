@@ -5,11 +5,17 @@ import {AddCourseComponent} from './features/course/add-course/add-course.compon
 import {EditCourseComponent} from './features/course/edit-course/edit-course.component';
 import {TeacherListComponent} from './features/teacher/teacher-list/teacher-list.component';
 import {TeacherAddComponent} from './features/teacher/teacher-add/teacher-add.component';
+import {LoginComponent} from './features/auth/login/login.component';
+import {HomeComponent} from './Home/home/home.component';
+import {StudentListComponent} from './features/student/student-list/student-list.component';
 export const routes: Routes = [
+  {path: 'login', component: LoginComponent},
   {path: 'navbar-component', component: NavbarComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'admin/course', component: CourseListComponent},
   {path: 'admin/course/add', component: AddCourseComponent},
   {path: 'admin/course/:id', component: EditCourseComponent},
   {path: 'admin/teacher', component: TeacherListComponent},
-  {path: 'admin/teacher/add', component: TeacherAddComponent}
+  {path: 'admin/teacher/add', component: TeacherAddComponent},
+  {path: 'admin/student', component: StudentListComponent}
 ];
