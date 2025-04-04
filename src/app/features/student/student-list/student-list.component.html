@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="mt-3">List of students</h1>
+
+  <ng-container *ngIf="students">
+    <table class="mt-3 table table-bordered">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Courses</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{student.id}}</td>
+        <td>{{student.userName}}</td>
+        <td>{{ student.courses?.join(", ") || "—" }}</td>
+
+        <td>
+          <!--          <a class="btn btn-light" [routerLink]="['/admin/course', course.id]">Edit</a>-->
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
+
+
