@@ -42,7 +42,7 @@ export class LoginComponent {
           });
 
           //redirect back to
-          this.router.navigateByUrl('/home')
+          this.router.navigateByUrl('/')
         }
       })
 

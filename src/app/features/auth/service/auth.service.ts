@@ -15,6 +15,11 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
+  hasRole(role: string): boolean {
+    const user = this.getUser();
+    return user?.roles.includes(role) ?? false;
+  }
+
   login(request: LoginRequestModel):Observable<LoginResponseModel>{
     return this.http.post<LoginResponseModel>(`${environment.apiBaseUrl}/Auth/login`, {
       email: request.email,
