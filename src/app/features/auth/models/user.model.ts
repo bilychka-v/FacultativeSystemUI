@@ -1,4 +1,5 @@
-export interface UserModel{
-  email: string,
-  roles: string[]
+export interface UserModel {
+  id: string;
+  email: string;
+  roles: string[];
 }

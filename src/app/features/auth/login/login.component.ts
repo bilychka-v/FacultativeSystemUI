@@ -36,6 +36,7 @@ export class LoginComponent {
 
           // set user
           this.authService.setUser({
+            id: response.id,
             email: response.email,
             roles: response.roles
 

@@ -20,6 +20,7 @@ export class AuthService {
     return user?.roles.includes(role) ?? false;
   }
 
+
   login(request: LoginRequestModel):Observable<LoginResponseModel>{
     return this.http.post<LoginResponseModel>(`${environment.apiBaseUrl}/Auth/login`, {
       email: request.email,
@@ -30,7 +31,7 @@ export class AuthService {
   setUser(user: UserModel): void{
 
     this.$user.next(user);
-
+    localStorage.setItem('user-id', user.id);
     localStorage.setItem('user-email', user.email);
     localStorage.setItem('user-roles', user.roles.join(', '));
   }
@@ -40,12 +41,14 @@ export class AuthService {
   }
 
   getUser(): UserModel | undefined{
+    const id = localStorage.getItem('user-id');
     const email = localStorage.getItem('user-email');
     const roles = localStorage.getItem('user-roles');
 
-    if(email && roles){
+    if(id && email && roles){
       const user: UserModel = {
-        email: email,
+        id,
+        email,
         roles: roles.split(', ')
       };
       return user;

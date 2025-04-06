@@ -7,6 +7,8 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {Teachers} from '../../teacher/models/teacher.model';
 import {TeacherService} from '../../teacher/services/teacher.service';
 import {AuthService} from '../../auth/service/auth.service';
+import {StudentService} from '../../student/services/student.service';
+import {StudentJoinCourse} from '../../student/models/student-join-course';
 
 @Component({
   selector: 'app-course-details',
@@ -23,6 +25,7 @@ import {AuthService} from '../../auth/service/auth.service';
 export class CourseDetailsComponent implements OnInit {
 
   id: string | null = null;
+  studentId: string | undefined;
   paramsSubscriptionId?: Subscription;
   course?: Courses;
   teacher?: Teachers;
@@ -31,7 +34,8 @@ export class CourseDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private teacherService: TeacherService,
-    private authService: AuthService
+    private authService: AuthService,
+    private studentService: StudentService
   ) {
 
   }
@@ -63,6 +67,41 @@ export class CourseDetailsComponent implements OnInit {
         }
       });
   }
+
+  onJoin(): void {
+    if (!this.id) {
+      alert('ID курсу не знайдено.');
+      return;
+    }
+
+    const currentUser = this.authService.getUser();
+    if (!currentUser?.id) {
+      alert('Користувач не авторизований!');
+      return;
+    }
+
+    this.studentId = currentUser.id;
+
+    const joinRequest: StudentJoinCourse = {
+      courseId: this.id
+    };
+
+    console.log('Запит на приєднання:', joinRequest);  // Додано лог для перевірки запиту
+
+    this.studentService.joinStudent(this.studentId, joinRequest)
+      .subscribe({
+        next: () => {
+          alert('Успішно приєднано до курсу!');
+        },
+        error: (error) => {
+          console.error('Помилка при приєднанні:', error);  // Покращено логування помилки
+          alert('Сталася помилка при приєднанні до курсу.');
+        }
+      });
+  }
+
+
+
 
   hasRole(role: string): boolean {
     return this.authService.hasRole(role);

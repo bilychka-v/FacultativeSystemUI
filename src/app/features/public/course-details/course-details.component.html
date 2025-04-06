@@ -21,7 +21,7 @@
     </div>
     <div class="card-footer text-center">
       <a [routerLink]="['/']" class="btn btn-outline-primary">Back to courses</a>
-      <button *ngIf="hasRole('student')" class="btn btn-primary">Join</button>
+      <button type="button" (click)="onJoin()" *ngIf="hasRole('student')" class="btn btn-primary">Join</button>
     </div>
   </div>
 </div>

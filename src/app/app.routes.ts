@@ -9,15 +9,19 @@ import {LoginComponent} from './features/auth/login/login.component';
 import {HomeComponent} from './features/public/home/home.component';
 import {StudentListComponent} from './features/student/student-list/student-list.component';
 import {CourseDetailsComponent} from './features/public/course-details/course-details.component';
+import {RegisterComponent} from './features/auth/register/register/register.component';
+import {DiaryListComponent} from './features/diary/diary-list/diary-list.component';
 export const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'course/:id', component: CourseDetailsComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'navbar-component', component: NavbarComponent},
+  {path: 'course/:id', component: CourseDetailsComponent},
   {path: 'admin/course', component: CourseListComponent},
   {path: 'admin/course/add', component: AddCourseComponent},
   {path: 'admin/course/:id', component: EditCourseComponent},
   {path: 'admin/teacher', component: TeacherListComponent},
   {path: 'admin/teacher/add', component: TeacherAddComponent},
-  {path: 'admin/student', component: StudentListComponent}
+  {path: 'admin/student', component: StudentListComponent},
+  {path: 'student/:id/grades', component: DiaryListComponent}
 ];

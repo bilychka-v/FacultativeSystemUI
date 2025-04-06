@@ -22,6 +22,11 @@
           </ul>
         </li>
         </ng-container>
+
+        <ng-container *ngIf="user !== undefined && user.roles.includes('student')">
+          <a class="nav-link active" aria-current="page" [routerLink]="['/student', user.id, 'grades']">Diary</a>
+        </ng-container>
+
       </ul>
     </div>
 
@@ -30,6 +35,7 @@
       <ng-container *ngIf = "user === undefined; else showLogout">
         <!-- Show login-button -->
           <a [routerLink]="['/login']" class="btn btn-primary" >Login</a>
+          <a [routerLink]="['/register']" class="btn primary">Register</a>
       </ng-container>
       <ng-template #showLogout>
         <div class="d-flex align-items-center">
