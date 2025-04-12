@@ -1,1 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+
+*{
+  font-family: "Winky Rough", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.table-wrapper {
+  border: 2px solid black;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table-dress {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-dress th,
+.table-dress td {
+  padding: 12px;
+  border-right: 2px solid rgba(0, 0, 0);
+  border-bottom: 2px solid rgba(0, 0, 0);
+  background-color: #f1e1f5;
+  text-align: left;
+}
+
+.table-dress th:last-child,
+.table-dress td:last-child {
+  border-right: none;
+}
+
+.table-dress thead th {
+  background-color: #efb0f3;
+  font-weight: bold;
+}
+
+.table-dress thead tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+.table-dress thead tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
+.table-dress tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.table-dress tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+

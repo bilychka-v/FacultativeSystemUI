@@ -14,14 +14,14 @@
           <h5 class="text-secondary">Teacher:</h5>
           <p class="fw-bold">{{ teacher.userName }}</p>
         </div>
+        <div class="card-footer text-center">
+          <a [routerLink]="['/']" class="btn btn-outline-primary">Back to courses</a>
+          <button type="button" (click)="onJoin()" *ngIf="hasRole('student') && !isFinished(course.endDate)" class="btn btn-primary">Join</button>
+        </div>
       </ng-container>
       <ng-template #notFound>
         <p class="text-danger">Course not found.</p>
       </ng-template>
-    </div>
-    <div class="card-footer text-center">
-      <a [routerLink]="['/']" class="btn btn-outline-primary">Back to courses</a>
-      <button type="button" (click)="onJoin()" *ngIf="hasRole('student')" class="btn btn-primary">Join</button>
     </div>
   </div>
 </div>

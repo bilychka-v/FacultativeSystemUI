@@ -86,7 +86,7 @@ export class CourseDetailsComponent implements OnInit {
       courseId: this.id
     };
 
-    console.log('Запит на приєднання:', joinRequest);  // Додано лог для перевірки запиту
+    console.log('Запит на приєднання:', joinRequest);
 
     this.studentService.joinStudent(this.studentId, joinRequest)
       .subscribe({
@@ -94,7 +94,7 @@ export class CourseDetailsComponent implements OnInit {
           alert('Успішно приєднано до курсу!');
         },
         error: (error) => {
-          console.error('Помилка при приєднанні:', error);  // Покращено логування помилки
+          console.error('Помилка при приєднанні:', error);
           alert('Сталася помилка при приєднанні до курсу.');
         }
       });
@@ -109,6 +109,10 @@ export class CourseDetailsComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.paramsSubscriptionId?.unsubscribe();
+  }
+
+  isFinished(endDate: string | Date): boolean{
+    return new Date(endDate) < new Date;
   }
 
 

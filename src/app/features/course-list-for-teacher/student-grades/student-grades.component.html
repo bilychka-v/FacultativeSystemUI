@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h2>Grades and Feedback</h2>
+
+  <ng-container  *ngIf="studentGrades && studentGrades.length > 0; else noStudents">
+    <div class="table-wrapper">
+    <table class="table-dress table-hover">
+      <thead>
+      <tr>
+        <th>Student</th>
+        <th>Grade</th>
+        <th>Feedback</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of studentGrades">
+        <td>{{ student.studentName}}</td>
+        <td>{{ student.grade }}</td>
+        <td>{{ student.feedback }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/course', student.feedbackId, 'feedback']">Edit grade</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </ng-container>
+
+  <ng-template #noStudents>
+    <p>No students enrolled or no grades available.</p>
+  </ng-template>
+</div>
+

@@ -11,6 +11,9 @@ import {StudentListComponent} from './features/student/student-list/student-list
 import {CourseDetailsComponent} from './features/public/course-details/course-details.component';
 import {RegisterComponent} from './features/auth/register/register/register.component';
 import {DiaryListComponent} from './features/diary/diary-list/diary-list.component';
+import {TeacherCoursesComponent} from './features/course-list-for-teacher/teacher-courses/teacher-courses.component';
+import {StudentGradesComponent} from './features/course-list-for-teacher/student-grades/student-grades.component';
+import {GradesUpdateComponent} from './features/course-list-for-teacher/grades-update/grades-update.component';
 export const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
@@ -23,5 +26,8 @@ export const routes: Routes = [
   {path: 'admin/teacher', component: TeacherListComponent},
   {path: 'admin/teacher/add', component: TeacherAddComponent},
   {path: 'admin/student', component: StudentListComponent},
-  {path: 'student/:id/grades', component: DiaryListComponent}
+  {path: 'student/:id/grades', component: DiaryListComponent},
+  {path: 'teacher/:id/courses', component: TeacherCoursesComponent},
+  {path: 'course/:courseId/grades', component: StudentGradesComponent },
+  {path: 'course/:feedbackId/feedback', component: GradesUpdateComponent}
 ];

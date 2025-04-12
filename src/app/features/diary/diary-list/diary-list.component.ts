@@ -43,4 +43,5 @@ export class DiaryListComponent implements OnInit{
         }
       });
     }
-  }
+
+}

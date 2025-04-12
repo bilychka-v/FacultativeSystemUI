@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>My courses</h1>
+  <ng-container *ngIf="courses?.length">
+    <div class="table-wrapper">
+    <table class="table-dress">
+      <thead>
+      <tr>
+        <th>Course</th>
+        <th>Start</th>
+        <th>End</th>
+        <th></th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{course.name}}</td>
+        <td>{{course.startDate | date: 'dd.MM.yyyy'}}</td>
+        <td>{{course.endDate | date: 'dd.MM.yyyy'}}</td>
+        <td>
+          <a [routerLink]="['/course', course.id, 'grades']" class="btn btn-primary">Show grades</a>
+        </td>
+        <td>
+          <span [ngSwitch]="getCourseStatus(course.startDate, course.endDate)">
+            <span *ngSwitchCase="'not-started'">Not started</span>
+            <span *ngSwitchCase="'active'" class="text-success">Ongoing</span>
+            <span *ngSwitchCase="'finished'">
+              <ng-container *ngIf="course.hasUnmarkedStudents; else finished">
+                <span class="text-danger">
+                  ! Require marks !
+                </span>
+              </ng-container>
+              <ng-template #finished>
+                <span class="text-primary">
+                  Finished
+                </span>
+              </ng-template>
+            </span>
+          </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </ng-container>
+</div>
+
