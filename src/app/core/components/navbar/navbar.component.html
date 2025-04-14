@@ -38,13 +38,13 @@
 
       <ng-container *ngIf = "user === undefined; else showLogout">
         <!-- Show login-button -->
-          <a [routerLink]="['/login']" class="btn btn-primary" >Login</a>
-          <a [routerLink]="['/register']" class="btn primary">Register</a>
+          <a [routerLink]="['/login']" class="btn button" >Login</a>
+          <a [routerLink]="['/register']" class="btn button-back">Register</a>
       </ng-container>
       <ng-template #showLogout>
         <div class="d-flex align-items-center">
           <span>{{user?.email}}</span>
-          <button class="btn btn-primary ms-3" (click)="onLogout()">Logout</button>
+          <button class="btn button ms-3" (click)="onLogout()">Logout</button>
         </div>
 
       </ng-template>

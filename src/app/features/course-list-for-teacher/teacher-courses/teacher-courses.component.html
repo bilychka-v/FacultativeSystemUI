@@ -18,7 +18,7 @@
         <td>{{course.startDate | date: 'dd.MM.yyyy'}}</td>
         <td>{{course.endDate | date: 'dd.MM.yyyy'}}</td>
         <td>
-          <a [routerLink]="['/course', course.id, 'grades']" class="btn btn-primary">Show grades</a>
+          <a [routerLink]="['/course', course.id, 'grades']" class="btn button">Show grades</a>
         </td>
         <td>
           <span [ngSwitch]="getCourseStatus(course.startDate, course.endDate)">

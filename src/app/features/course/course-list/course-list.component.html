@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="mt-3">List of courses</h1>
   <div class="d-flex justify-content-end mt-3">
-    <a [routerLink]="['/admin/course/add']"  class="btn btn-primary">Add course</a>
+    <a [routerLink]="['/admin/course/add']"  class="btn button">Add course</a>
   </div>
 
   <ng-container *ngIf="courses">
@@ -23,7 +23,7 @@
         <td>{{course.isActive}}</td>
         <td>{{course.teacherName}}</td>
         <td>
-          <a class="btn btn-light" [routerLink]="['/admin/course', course.id]">Edit</a>
+          <a class="btn button" [routerLink]="['/admin/course', course.id]">Edit</a>
         </td>
       </tr>
       </tbody>

@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {RegisterRequest} from '../models/register-request';
-import {RegisterService} from '../service/register.service';
+import {AuthService} from '../service/auth.service';
 import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {RegisterRequest} from '../models/register-request';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,7 @@ export class RegisterComponent{
 
   model: RegisterRequest;
 
-  constructor(private registerService: RegisterService, private router: Router) {
+  constructor(private registerService: AuthService, private router: Router) {
     this.model = {
       userName: '',
       email: '',

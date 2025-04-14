@@ -31,9 +31,10 @@ export class NavbarComponent implements OnInit{
     this.user = this.authService.getUser();
   }
 
-  onLogout(): void{
-  this.authService.logout();
-  this.router.navigateByUrl('/')
+  onLogout(): void {
+    this.authService.logout();
+    this.router.navigateByUrl('/');
   }
+
 
 }

@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="card shadow-lg rounded-4">
-    <div class="card-header bg-primary text-white text-center">
+    <div class="card-header button text-white text-center">
       <h2>{{ course?.name }}</h2>
     </div>
     <div class="card-body">
@@ -15,8 +15,8 @@
           <p class="fw-bold">{{ teacher.userName }}</p>
         </div>
         <div class="card-footer text-center">
-          <a [routerLink]="['/']" class="btn btn-outline-primary">Back to courses</a>
-          <button type="button" (click)="onJoin()" *ngIf="hasRole('student') && !isFinished(course.endDate)" class="btn btn-primary">Join</button>
+          <a [routerLink]="['/']" class="btn button-back">Back to courses</a>
+          <button type="button" (click)="onJoin()" *ngIf="hasRole('student') && !isFinished(course.endDate)" class="btn button">Join</button>
         </div>
       </ng-container>
       <ng-template #notFound>

@@ -51,3 +51,23 @@
   border-bottom-right-radius: 12px;
 }
 
+.button{
+  background-color: #b071ee;
+  color: #eee2ef;
+}
+.button:hover{
+  border: #b071ee 1px solid;
+}
+
+.button-back{
+  border: #b071ee 1px solid;
+}
+.button-back:hover{
+  background-color: #b071ee;
+  color: #eee2ef;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import {LoginRequestModel} from '../models/login-request.model';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {LoginResponseModel} from '../models/login-response.model';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
-import {UserModel} from '../models/user.model';
-import {CookieService} from 'ngx-cookie-service';
+import { LoginRequestModel } from '../models/login-request.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoginResponseModel } from '../models/login-response.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+import { UserModel } from '../models/user.model';
+import { CookieService } from 'ngx-cookie-service';
+import { RegisterRequest } from '../models/register-request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  $user = new BehaviorSubject<UserModel | undefined>(undefined)
+  $user = new BehaviorSubject<UserModel | undefined>(undefined);
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -20,32 +21,30 @@ export class AuthService {
     return user?.roles.includes(role) ?? false;
   }
 
-
-  login(request: LoginRequestModel):Observable<LoginResponseModel>{
+  login(request: LoginRequestModel): Observable<LoginResponseModel> {
     return this.http.post<LoginResponseModel>(`${environment.apiBaseUrl}/Auth/login`, {
       email: request.email,
       password: request.password
     });
   }
 
-  setUser(user: UserModel): void{
-
+  setUser(user: UserModel): void {
     this.$user.next(user);
-    localStorage.setItem('user-id', user.id);
-    localStorage.setItem('user-email', user.email);
-    localStorage.setItem('user-roles', user.roles.join(', '));
+    sessionStorage.setItem('user-id', user.id);
+    sessionStorage.setItem('user-email', user.email);
+    sessionStorage.setItem('user-roles', user.roles.join(', '));
   }
 
-  user(): Observable<UserModel | undefined>{
+  user(): Observable<UserModel | undefined> {
     return this.$user.asObservable();
   }
 
-  getUser(): UserModel | undefined{
-    const id = localStorage.getItem('user-id');
-    const email = localStorage.getItem('user-email');
-    const roles = localStorage.getItem('user-roles');
+  getUser(): UserModel | undefined {
+    const id = sessionStorage.getItem('user-id');
+    const email = sessionStorage.getItem('user-email');
+    const roles = sessionStorage.getItem('user-roles');
 
-    if(id && email && roles){
+    if (id && email && roles) {
       const user: UserModel = {
         id,
         email,
@@ -57,9 +56,38 @@ export class AuthService {
     return undefined;
   }
 
-  logout(): void{
-    localStorage.clear();
-    this.cookieService.delete('Authorization', '/');
+  // logout(): void {
+  //   sessionStorage.clear();
+  //   this.cookieService.delete('Authorization', '/');
+  //   this.$user.next(undefined);
+  // }
+
+  register(model: RegisterRequest): Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/Auth/register`, model);
+  }
+
+  loginWithGoogle(credential: string) {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.http.post(`${environment.apiBaseUrl}/Auth/loginWithGoogle`, { credential },
+      { headers });
+  }
+
+  setAccessToken(token: string): void {
+    sessionStorage.setItem('accessToken', token);
+  }
+
+  getAccessToken(): string | null {
+    return sessionStorage.getItem('accessToken');
+  }
+
+  logout(): void {
+    sessionStorage.clear();
+    // localStorage.clear();
+
+    this.cookieService.delete('Authorization', '/'); // або без '/' якщо не працює
+    this.cookieService.deleteAll();
+
     this.$user.next(undefined);
   }
+
 }

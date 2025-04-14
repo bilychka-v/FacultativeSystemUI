@@ -9,11 +9,11 @@ import {LoginComponent} from './features/auth/login/login.component';
 import {HomeComponent} from './features/public/home/home.component';
 import {StudentListComponent} from './features/student/student-list/student-list.component';
 import {CourseDetailsComponent} from './features/public/course-details/course-details.component';
-import {RegisterComponent} from './features/auth/register/register/register.component';
 import {DiaryListComponent} from './features/diary/diary-list/diary-list.component';
 import {TeacherCoursesComponent} from './features/course-list-for-teacher/teacher-courses/teacher-courses.component';
 import {StudentGradesComponent} from './features/course-list-for-teacher/student-grades/student-grades.component';
 import {GradesUpdateComponent} from './features/course-list-for-teacher/grades-update/grades-update.component';
+import {RegisterComponent} from './features/auth/register/register.component';
 export const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},

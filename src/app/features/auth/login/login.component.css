@@ -1,0 +1,18 @@
+mat-card{
+  width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-form-field{
+  display: block;
+}
+
+#buttonDiv{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+  }
+
+
+
