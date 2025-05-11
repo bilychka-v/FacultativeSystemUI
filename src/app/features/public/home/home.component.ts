@@ -28,4 +28,8 @@ export class HomeComponent implements OnInit{
     this.courses$ = this.courseService.getCourses();
   }
 
+  onSearch(query: string){
+    this.courses$ = this.courseService.getCourses(query);
+  }
+
 }

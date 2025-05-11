@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CourseRequest} from '../models/course-request.model';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Courses} from '../models/course.model';
 import {environment} from '../../../../environments/environment';
 import {ListCourses} from '../models/list-courses.model';
@@ -20,8 +20,16 @@ export class CourseService {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/Course`, model);
   }
 
-  getCourses(): Observable<ListCourses[]> {
-    return this.http.get<ListCourses[]>(`${environment.apiBaseUrl}/api/Course`)
+  getCourses(query?: string): Observable<ListCourses[]> {
+    let params = new HttpParams();
+
+    if(query){
+      params = params.set('courseName', query)
+    }
+
+    return this.http.get<ListCourses[]>(`${environment.apiBaseUrl}/api/Course`, {
+      params: params
+    })
   }
 
   getCourseById(id: string): Observable<Courses> {

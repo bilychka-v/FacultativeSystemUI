@@ -56,11 +56,6 @@ export class AuthService {
     return undefined;
   }
 
-  // logout(): void {
-  //   sessionStorage.clear();
-  //   this.cookieService.delete('Authorization', '/');
-  //   this.$user.next(undefined);
-  // }
 
   register(model: RegisterRequest): Observable<void> {
     return this.http.post<void>(`${environment.apiBaseUrl}/Auth/register`, model);
@@ -84,7 +79,7 @@ export class AuthService {
     sessionStorage.clear();
     // localStorage.clear();
 
-    this.cookieService.delete('Authorization', '/'); // або без '/' якщо не працює
+    this.cookieService.delete('Authorization', '/');
     this.cookieService.deleteAll();
 
     this.$user.next(undefined);

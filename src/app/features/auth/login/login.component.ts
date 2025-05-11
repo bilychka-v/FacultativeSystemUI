@@ -5,16 +5,16 @@ import { AuthService } from '../service/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-// import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
-import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import {CredentialResponse} from '../models/credential.response.model';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',
   imports: [
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    NgIf
   ],
   standalone: true,
   templateUrl: './login.component.html',
@@ -23,6 +23,7 @@ import {CredentialResponse} from '../models/credential.response.model';
 export class LoginComponent implements OnInit {
 
   model: LoginRequestModel;
+  errorMessage: string = '';
 
   constructor(
     private authService: AuthService,
@@ -53,17 +54,22 @@ export class LoginComponent implements OnInit {
 
           // redirect back to home
           this.router.navigateByUrl('/');
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            this.errorMessage = error.error.message || 'Invalid login or password';
+          }
         }
       });
   }
 
-  getAuthHeaders(): HttpHeaders {
-    const token = this.cookieService.get('Authorization'); // Get token from cookies
-    if (token) {
-      return new HttpHeaders().set('Authorization', token);
-    }
-    return new HttpHeaders();
-  }
+  // getAuthHeaders(): HttpHeaders {
+  //   const token = this.cookieService.get('Authorization'); // Get token from cookies
+  //   if (token) {
+  //     return new HttpHeaders().set('Authorization', token);
+  //   }
+  //   return new HttpHeaders();
+  // }
 
   loadGoogleScript(): void {
     const script = document.createElement('script');

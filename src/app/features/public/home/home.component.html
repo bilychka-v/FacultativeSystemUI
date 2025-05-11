@@ -1,10 +1,16 @@
 <div class="container">
   <div class="my-5">
     <div class="row align-items-strech">
+      <div class="d-flex justify-content-start mt-3 mb-3">
+        <div class="d-flex">
+          <input type="text" class="form-control" placeholder="Enter to search..." #query>
+          <button class="btn btn-warning ms-3" (click)="onSearch(query.value)">Search</button>
+        </div>
+      </div>
       <ng-container *ngIf = "courses$ | async as courses">
         <div class="con-12 col-md-4 mb-3" *ngFor="let course of courses">
           <div class="card h-100">
-            <div class="card-body d-flex flex-column">
+            <div class="card-body d-flex flex-column box-wrapper">
               <h5>
                 {{course.name}}
               </h5>
