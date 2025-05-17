@@ -1,6 +1,17 @@
 <div class="container mt-4">
   <h2>Grades and Feedback</h2>
 
+  <h4 class="mb-4">
+    Sort by:
+    <span>
+      <button class="btn btn-sm button ms-2" (click)="sortByGrades('Grade', 'desc')">Grades (From higher)</button>
+       <button class="btn btn-sm button ms-2" (click)="sortByGrades('Grade', 'asc')">Grades (From higher)</button>
+<!--      <button class="btn btn-sm button ms-2" (click)="sort('name', 'desc')">Name (Z-A)</button>-->
+<!--      <button class="btn btn-sm button ms-2" (click)="sort('date', 'desc')">New</button>-->
+<!--      <button class="btn btn-sm button ms-2" (click)="sort('date', 'asc')">Old</button>-->
+    </span>
+  </h4>
+
   <ng-container  *ngIf="studentGrades && studentGrades.length > 0; else noStudents">
     <div class="table-wrapper">
     <table class="table-dress table-hover">

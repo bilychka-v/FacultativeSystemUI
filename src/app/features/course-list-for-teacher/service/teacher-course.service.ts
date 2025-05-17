@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TeacherCourseModel} from '../models/teacher-course.model';
 import {environment} from '../../../../environments/environment';
@@ -18,8 +18,18 @@ export class TeacherCourseService {
     return this.http.get<TeacherCourseModel[]>(`${environment.apiBaseUrl}/api/Teacher/${id}/courses`)
   }
 
-  getGradesByCourseId(courseId: string): Observable<StudentGrades[]>{
-    return this.http.get<StudentGrades[]>(`${environment.apiBaseUrl}/api/Course/${courseId}/grades`)
+  getGradesByCourseId(courseId: string, sortByGrade?: string, sortDirection?: string): Observable<StudentGrades[]>{
+    let params = new HttpParams();
+
+    if(sortByGrade){
+      params = params.set("sortByGrade", sortByGrade)
+    }
+    if(sortDirection){
+      params = params.set("sortDirection", sortDirection)
+    }
+    return this.http.get<StudentGrades[]>(`${environment.apiBaseUrl}/api/Course/${courseId}/grades`, {
+      params
+    })
   }
 
   getGradesByFeedbackId(feedbackId: string): Observable<GradesList>{

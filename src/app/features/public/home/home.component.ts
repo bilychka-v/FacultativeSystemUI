@@ -20,7 +20,10 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 })
 export class HomeComponent implements OnInit{
 
-  courses$? : Observable<ListCourses[]>
+  courses$? : Observable<ListCourses[]>;
+  selectedSortLabel: string = '';
+
+
   constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router) {
   }
 
@@ -43,9 +46,20 @@ export class HomeComponent implements OnInit{
   sort(sortBy: string, sortDirection: string) {
     this.router.navigate([], {
       queryParams: { sortBy, sortDirection },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
+
     });
+    this.selectedSortLabel = this.getSortable(sortBy, sortDirection);
   }
+
+  getSortable(field: string, sortDirection: string){
+    if(field === 'name' && sortDirection === 'asc') return 'Name (A-Z)';
+    if(field === 'name' && sortDirection === 'desc') return 'Name (Z-A)';
+    if(field === 'date' && sortDirection === 'desc') return 'New';
+    if(field === 'date' && sortDirection === 'asc') return 'Old';
+    return '';
+  }
+
 
 
 }
