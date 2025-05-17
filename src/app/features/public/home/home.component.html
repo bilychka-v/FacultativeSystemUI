@@ -2,10 +2,22 @@
   <div class="my-5">
     <div class="row align-items-strech">
       <div class="d-flex justify-content-start mt-3 mb-3">
-        <div class="d-flex">
-          <input type="text" class="form-control" placeholder="Enter to search..." #query>
-          <button class="btn btn-warning ms-3" (click)="onSearch(query.value)">Search</button>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex">
+            <input type="text" class="form-control" placeholder="Enter to search..." #query>
+            <button class="btn btn-warning ms-2" (click)="onSearch(query.value)">Search</button>
+          </div>
+          <h4 class="mb-0 ms-4">
+            Sort by:
+            <span>
+      <button class="btn btn-sm button ms-2" (click)="sort('name', 'asc')">Name (A-Z)</button>
+      <button class="btn btn-sm button ms-2" (click)="sort('name', 'desc')">Name (Z-A)</button>
+      <button class="btn btn-sm button ms-2" (click)="sort('date', 'desc')">New</button>
+      <button class="btn btn-sm button ms-2" (click)="sort('date', 'asc')">Old</button>
+    </span>
+          </h4>
         </div>
+
       </div>
       <ng-container *ngIf = "courses$ | async as courses">
         <div class="con-12 col-md-4 mb-3" *ngFor="let course of courses">

@@ -58,6 +58,9 @@
 .button:hover{
   border: #b071ee 1px solid;
 }
+.button:active{
+  background-color: #eee2ef;
+}
 
 .button-back{
   border: #b071ee 1px solid;

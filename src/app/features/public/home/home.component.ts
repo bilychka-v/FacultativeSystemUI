@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Courses} from '../../course/models/course.model';
 import {ListCourses} from '../../course/models/list-courses.model';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,15 +21,31 @@ import {RouterLink} from '@angular/router';
 export class HomeComponent implements OnInit{
 
   courses$? : Observable<ListCourses[]>
-  constructor(private courseService: CourseService) {
+  constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void{
-    this.courses$ = this.courseService.getCourses();
+    this.route.queryParams.subscribe(params =>{
+      const query = params['query'] || '';
+      const sortBy = params['sortBy'] || '';
+      const sortDirection = params['sortDirection'] || '';
+      this.courses$ = this.courseService.getCourses(query, sortBy, sortDirection);
+    })
   }
 
-  onSearch(query: string){
-    this.courses$ = this.courseService.getCourses(query);
+  onSearch(query: string) {
+    this.router.navigate([], {
+      queryParams: { query },
+      queryParamsHandling: 'merge'
+    });
   }
+
+  sort(sortBy: string, sortDirection: string) {
+    this.router.navigate([], {
+      queryParams: { sortBy, sortDirection },
+      queryParamsHandling: 'merge'
+    });
+  }
+
 
 }

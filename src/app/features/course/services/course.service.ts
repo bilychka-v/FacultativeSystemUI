@@ -20,11 +20,18 @@ export class CourseService {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/Course`, model);
   }
 
-  getCourses(query?: string): Observable<ListCourses[]> {
+  getCourses(query?: string, sortBy?: string, sortDirection?: string): Observable<ListCourses[]> {
     let params = new HttpParams();
 
     if(query){
       params = params.set('courseName', query)
+    }
+
+    if(sortBy){
+      params = params.set('sortBy', sortBy)
+    }
+    if(sortDirection){
+      params = params.set('sortDirection', sortDirection)
     }
 
     return this.http.get<ListCourses[]>(`${environment.apiBaseUrl}/api/Course`, {
