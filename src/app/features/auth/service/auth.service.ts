@@ -69,6 +69,7 @@ export class AuthService {
 
   setAccessToken(token: string): void {
     sessionStorage.setItem('accessToken', token);
+    this.cookieService.delete('Authorization', '/');
   }
 
   getAccessToken(): string | null {

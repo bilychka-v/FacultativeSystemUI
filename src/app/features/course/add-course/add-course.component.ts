@@ -4,7 +4,7 @@ import {CourseRequest} from '../models/course-request.model';
 import {CourseService} from '../services/course.service';
 import {Router} from '@angular/router';
 import {Teachers} from '../../teacher/models/teacher.model';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-add-course',
@@ -12,14 +12,17 @@ import {NgForOf} from '@angular/common';
   templateUrl: './add-course.component.html',
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   styleUrl: './add-course.component.css'
 })
 export class AddCourseComponent implements OnInit{
 
   model: CourseRequest;
-  teachers : Teachers[] = []
+  teachers : Teachers[] = [];
+  serverErrors: { [key: string]: string } = {};
+
 
 
 
@@ -33,13 +36,25 @@ export class AddCourseComponent implements OnInit{
     };
 
   }
-  onFromSubmit(){
+  onFormSubmit(){
+    console.log('Sending model:', this.model);
+    this.serverErrors = {};
     this.courseService.addCourse(this.model)
       .subscribe({
         next: (response)=> {
           this.router.navigateByUrl('/admin/course')
+        },
+        error: err => {
+          console.log('Error from server:', err);
+          if (err.status === 400 && err.error?.errors) {
+            for (let field in err.error.errors) {
+              // Перетворимо 'StartDate' -> 'startDate' для зв'язку з моделлю
+              const key = field.charAt(0).toLowerCase() + field.slice(1);
+              this.serverErrors[key] = err.error.errors[field][0]; // беремо перше повідомлення
+            }
+          }
         }
-      })
+      });
   }
 
   ngOnInit(): void {

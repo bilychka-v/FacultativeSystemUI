@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { environment } from '../../../../environments/environment';
 import {CredentialResponse} from '../models/credential.response.model';
 import {NgIf} from '@angular/common';
+import {HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -42,17 +43,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.model)
       .subscribe({
         next: (response) => {
-          // set user
+          this.authService.setAccessToken(response.token);
+
           this.authService.setUser({
             id: response.id,
             email: response.email,
             roles: response.roles
           });
 
-          // set token in cookies
-          this.cookieService.set('Authorization', `Bearer ${response.token}`)
-
-          // redirect back to home
           this.router.navigateByUrl('/');
         },
         error: (error) => {
@@ -63,13 +61,13 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  // getAuthHeaders(): HttpHeaders {
-  //   const token = this.cookieService.get('Authorization'); // Get token from cookies
-  //   if (token) {
-  //     return new HttpHeaders().set('Authorization', token);
-  //   }
-  //   return new HttpHeaders();
-  // }
+    getAuthHeaders(): HttpHeaders {
+    const token = this.cookieService.get('Authorization'); // Get token from cookies
+    if (token) {
+      return new HttpHeaders().set('Authorization', token);
+    }
+    return new HttpHeaders();
+  }
 
   loadGoogleScript(): void {
     const script = document.createElement('script');
